@@ -11,7 +11,7 @@
 import cx_Oracle
 
 #conn = cx_Oracle.connect('prueba','prueba01','190.215.50.170/principal')
-connection = cx_Oracle.connect(user="prueba", password="",
+connection = cx_Oracle.connect(user="prueba", password="prueba01",
                                dsn="190.215.50.170:8521/principal")
 
 cursor = connection.cursor()

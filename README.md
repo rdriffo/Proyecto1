@@ -15,4 +15,4 @@ Para instalar se requiere:
 * Crea el entorno virtual e instala las librerías con pip
 
 ## Autor
-* **RRC**
+* **RRC**# Proyecto1

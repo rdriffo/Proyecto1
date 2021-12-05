@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from requests.api import post
+from requests.api import get
 from rest_framework.views       import  APIView
 from rest_framework.response    import  Response
 from rest_framework             import  status
@@ -29,20 +31,26 @@ class get_data(APIView):
         
         cursor = connection.cursor()
         cursor.execute("""
-                SELECT run, nombres, apellidos, nacionalidad
-                FROM identificacion
+                SELECT run, dv_run, npi, dv_npi, apell_pat, apell_mat, primer_nombre, segundo_nombre, sigla_unid_rep, estado_cto
+                FROM identificacion_pna
                 WHERE run = :run""",
                 run = rut)
 
-        for run, nombres, apellidos, nacionalidad in cursor:
+        for run, dv_run, npi, dv_npi, apell_pat, apell_mat, primer_nombre, segundo_nombre, sigla_unid_rep, estado_cto in cursor:
             identificacion = {
                 "run":run,
-                "nombres":nombres,
-                "apellidos":apellidos,
-                "nacionalidad":nacionalidad
+                "dv_run":dv_run,
+                "npi":npi,
+                "dv_npi":dv_npi,
+                "apell_pat":apell_pat,
+                "apell_mat":apell_mat,
+                "primer_nombre":primer_nombre,
+                "segundo_nombre":segundo_nombre,
+                "sigla_unid_rep":sigla_unid_rep,
+                "estado_cto":estado_cto
             }
 
-            print("Values:", run, nombres, apellidos, nacionalidad)
+            print("Values:", run, dv_run, npi, dv_npi, apell_pat, apell_mat, primer_nombre, segundo_nombre, sigla_unid_rep, estado_cto)
 
         imagen = self.foto(rut, connection)
 
@@ -59,7 +67,7 @@ class get_data(APIView):
         
         items=[]
         with connection.cursor() as cursor:
-            statament = "select foto from foto where run=:run"
+            statament = "select foto_tin from foto_tin_pna where run=:run"
             cursor.execute(statament, {'run':run})
             result = cursor.fetchone()[0]
             print(result.read())
